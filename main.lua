@@ -23,14 +23,13 @@ function love.load()
     local object_files = {}
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
-    circ = Circle(400,300,50)
+    hyperCirc = HyperCircle(400, 300, 50, 10, 120)
 end
 
 function love.update(dt)
-    circ:update()
+    hyperCirc:update(dt)
 end
 
 function love.draw()
-    circ:draw()
+    hyperCirc:draw()
 end
-
