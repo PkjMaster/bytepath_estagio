@@ -3,10 +3,14 @@ Stage = Object:extend()
 function Stage:new()
     self.area = Area() -- insere uma area dentro do objeto
     self.timer = Timer()
-    self.timer:every(2, function()     
-        self.area:addGameObject('Circle', random(0, 800), random(0, 600))
-    end) -- a cada 2 segundos cria um circulo em uma posição aleatória
 
+    for i=1,10,1 do
+        self.timer:after(i*0.25, function() 
+            self.area:addGameObject('Circle', random(0, 800), random(0, 600)) 
+        end)
+    end
+
+    
 end
 
 function Stage:update(dt)

@@ -15,3 +15,28 @@ function random(min, max)
         return love.math.random() * min
     end
 end
+
+function printAll(...)
+    args = {...}
+    for _, k in ipairs(args) do
+        print(args[k])
+    end
+end
+
+function printText(...)
+    args = {...}
+    print(M.reduce(args, function(a, b) return a .. b end))
+end
+
+function closestInt(n) 
+    local remainder = n % 1
+    local c -- closest
+
+    if remainder >= (0.5) then
+        c = (n + (1 - remainder))
+    else
+        c = (n - remainder)
+    end
+
+    print(c)
+end
