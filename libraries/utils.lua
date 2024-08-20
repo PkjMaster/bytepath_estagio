@@ -8,5 +8,10 @@ function UUID()
 end
 
 function random(min, max)
-    return love.math.random() * (max - min) + min
+    if max then 
+        if min > max then min, max = max, min end
+        return love.math.random() * (max - min) + min
+    else
+        return love.math.random() * min
+    end
 end
