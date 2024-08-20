@@ -1,4 +1,7 @@
 Object = require 'libraries/classic/classic'
+Input = require 'libraries/boipushy/Input'
+Timer = require 'libraries/enhanced_timer/EnhancedTimer'
+M = require 'libraries/Moses/moses'
 
 function requireFiles(files)
     for _, file in ipairs(files) do
@@ -23,13 +26,25 @@ function love.load()
     local object_files = {}
     recursiveEnumerate('objects', object_files)
     requireFiles(object_files)
-    hyperCirc = HyperCircle(400, 300, 50, 10, 120)
+
+    input = Input()
+    current_room = nil
+    input:bind('f1', 'changeCircle')
+    input:bind('f2', 'changeRectangle')
+    input:bind('f3', 'changePolygon')
 end
 
 function love.update(dt)
-    hyperCirc:update(dt)
+    if current_room then current_room:update(dt) end
+    if input:pressed('changeCircle') then gotoRoom('CircleRoom') end
+    if input:pressed('changeRectangle') then gotoRoom('RectangleRoom') end
+    if input:pressed('changePolygon') then gotoRoom('PolygonRoom') end
 end
 
 function love.draw()
-    hyperCirc:draw()
+    if current_room then current_room:draw() end
+end
+
+function gotoRoom(room_type, ...)
+    current_room = _G[room_type](...)
 end
