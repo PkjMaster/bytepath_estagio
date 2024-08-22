@@ -1,34 +1,34 @@
 require 'luacov'
-local M = require 'moses'
+local _ = require 'moses'
 
-describe('Chaining specs', function()
+context('Chaining specs', function()
 
-   describe('chain', function()
+   context('chain', function()
   
-    it('Chains a value',function()
-      local v = M.chain({1,2,3,4})
-        :filter(function(k) return k%2~=0 end)
+    test('Chains a value',function()
+      local v = _.chain({1,2,3,4})
+        :filter(function(i,k) return k%2~=0 end)
         :max()
         :value()
-      assert.equal(v, 3)
+      assert_equal(v, 3)
     end)
     
-    it('M(value) is the same as M.chain(value)', function()
-      local v = M({1,2,3,4})
-        :filter(function(k) return k%2~=0 end)
+    test('_(value) is the same as _.chain(value)', function()
+      local v = _({1,2,3,4})
+        :filter(function(i,k) return k%2~=0 end)
         :max()
         :value()
-      assert.equal(v, 3)    
+      assert_equal(v, 3)    
     end)
     
   end) 
   
-   describe('value', function()
+   context('value', function()
   
-    it('Unwraps a chained object',function()
+    test('Unwraps a chained object',function()
       local t = {1,2,3}
-      assert.equal(M.chain(t):value(), t)
-      assert.equal(M(t):value(), t)
+      assert_equal(_.chain(t):value(), t)
+      assert_equal(_(t):value(), t)
     end)
     
   end)   

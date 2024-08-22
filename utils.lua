@@ -1,6 +1,6 @@
 function UUID()
     local fn = function(x)
-        local r = love.math.random(16) - 1
+        local r = math.random(16) - 1
         r = (x == "x") and (r + 1) or (r % 4) + 9
         return ("0123456789abcdef"):sub(r, r)
     end
@@ -8,39 +8,21 @@ function UUID()
 end
 
 function random(min, max)
-    if max then 
-        if min > max then min, max = max, min end
-        return love.math.random() * (max - min) + min
-    else
-        return love.math.random() * min
-    end
+    local min, max = min or 0, max or 1
+    return (min > max and (love.math.random()*(min - max) + max)) or (love.math.random()*(max - min) + min)
 end
 
-function printAll(...)
-    args = {...}
-    for _, k in ipairs(args) do
-        print(args[k])
-    end
+function pushRotate(x, y, r)
+    love.graphics.push()
+    love.graphics.translate(x, y)
+    love.graphics.rotate(r or 0)
+    love.graphics.translate(-x, -y)
 end
 
-function printText(...)
-    args = {...}
-    print(M.reduce(args, function(a, b) return a .. b end))
-end
-
-function closestInt(n) 
-    local remainder = n % 1
-    local c -- closest
-
-    if remainder >= (0.5) then
-        c = (n + (1 - remainder))
-    else
-        c = (n - remainder)
-    end
-
-    print(c)
-end
-
-function distance(x1, y1, x2, y2)
-    return math.sqrt((x1 - x2)^2 + (y1 - y2)^2)
+function pushRotateScale(x, y, r, sx, sy)
+    love.graphics.push()
+    love.graphics.translate(x, y)
+    love.graphics.rotate(r or 0)
+    love.graphics.scale(sx or 1, sy or sx or 1)
+    love.graphics.translate(-x, -y)
 end
