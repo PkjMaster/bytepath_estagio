@@ -26,16 +26,6 @@ end
 function Projectile:draw()
     love.graphics.setColor(default_color)
 
-    --[[
-    local vx, vy = self.collider:getLinearVelocity()
-    pushRotate(self.x, self.y, Vector(vx, vy):angle()) 
-    love.graphics.setLineWidth(self.s - self.s/4)
-    love.graphics.line(self.x - 2*self.s, self.y, self.x, self.y)
-    love.graphics.line(self.x, self.y, self.x + 2*self.s, self.y)
-    love.graphics.setLineWidth(1)
-    love.graphics.pop()
-    ]]--
-
     love.graphics.circle('line', self.x, self.y, self.s)
 end
 
